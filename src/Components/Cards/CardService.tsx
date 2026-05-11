@@ -1,7 +1,7 @@
 import { CgFileDocument } from "react-icons/cg";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { MdOutlineMedicalInformation } from "react-icons/md";
 import { IoBusOutline } from "react-icons/io5";
+import { MdOutlineMedicalInformation } from "react-icons/md";
 import Services from "../../data/services.json";
 
 const IconsCard = {
@@ -11,41 +11,68 @@ const IconsCard = {
   transporte: <IoBusOutline />,
 };
 
+function getAccent(category: string) {
+  switch (category) {
+    case "residuos":
+      return "bg-emerald-100 text-emerald-700";
+    case "medico":
+      return "bg-sky-100 text-sky-700";
+    case "transporte":
+      return "bg-stone-200 text-stone-700";
+    default:
+      return "bg-amber-100 text-amber-700";
+  }
+}
+
 export default function CardService() {
   return (
-    <div className="grid grid-cols-3 gap-10">
+    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       {Services.map((service) => {
-        const iconRender = IconsCard[
-          service.category as keyof typeof IconsCard
-        ] ?? <CgFileDocument />;
+        const iconRender =
+          IconsCard[service.category as keyof typeof IconsCard] ?? <CgFileDocument />;
+        const accent = getAccent(service.category);
+
         return (
-          <div
+          <article
             key={service.id}
-            className="shadow-xl rounded-xl flex h-full flex-col gap-4 p-6 max-w-200"
+            className="tourism-panel flex h-full flex-col rounded-[2rem] border border-white/70 p-7 text-left shadow-[0_24px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_28px_80px_rgba(120,53,15,0.16)]"
           >
-            <div className="bg-green-600/10 text-green-600 text-3xl p-3 rounded-xl w-auto mr-auto ">{iconRender}</div>
-            <div className="min-h-[3.5rem]">
-              <h2 className="text-xl text-black font-bold">{service.title}</h2>
+            <div
+              className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl text-3xl ${accent}`}
+            >
+              {iconRender}
             </div>
-            <div className="min-h-[3.5rem]">
-              <p className="text-gray-700 text-sm">{service.description}</p>
+
+            <div className="min-h-[4.5rem]">
+              <h3 className="tourism-display text-3xl leading-tight text-stone-900">
+                {service.title}
+              </h3>
             </div>
-            <ul className="list-disc ml-4 mb-4 flex-1 gap-2">
+
+            <div className="min-h-[5rem]">
+              <p className="leading-7 text-stone-700">{service.description}</p>
+            </div>
+
+            <ul className="mt-4 flex-1 space-y-3 text-stone-700">
               {service.servicios.map((servicio, index) => (
-                <li key={index} className="text-gray-600">
-                  {servicio}
+                <li key={index} className="flex items-start gap-3">
+                  <span className="mt-2 h-2 w-2 rounded-full bg-amber-600" />
+                  <span>{servicio}</span>
                 </li>
               ))}
             </ul>
-            <div>
-              <p className="text-gray-700 mb-2">
-                <strong>Contacto:</strong> {service.contacto}
+
+            <div className="mt-6 border-t border-stone-200/80 pt-5 text-sm leading-7 text-stone-700">
+              <p>
+                <strong className="font-semibold text-stone-900">Contacto:</strong>{" "}
+                {service.contacto}
               </p>
-              <p className="text-gray-700">
-                <strong>Horario:</strong> {service.horario}
+              <p>
+                <strong className="font-semibold text-stone-900">Horario:</strong>{" "}
+                {service.horario}
               </p>
             </div>
-          </div>
+          </article>
         );
       })}
     </div>
