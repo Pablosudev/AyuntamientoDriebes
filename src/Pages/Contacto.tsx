@@ -5,10 +5,14 @@ import { LuSend } from "react-icons/lu";
 export default function Contacto() {
   return (
     <section className="">
-      <div className="bg-purple-600 text-white items-center flex flex-col gap-5 py-20">
-        <LuMail className="text-5xl" />
-        <h1 className="font-bold text-6xl">Contacto</h1>
-        <p className="text-xl">Estamos a tu disposición</p>
+      <div className="flex flex-col items-center gap-3 bg-purple-600 px-6 py-12 text-white sm:px-8 sm:py-14 lg:px-10">
+        <LuMail className="text-4xl sm:text-5xl" />
+        <h1 className="text-4xl font-bold leading-none sm:text-5xl lg:text-6xl">
+          Contacto
+        </h1>
+        <p className="text-sm leading-6 sm:text-base">
+          Estamos a tu disposición
+        </p>
       </div>
       <div className="grid grid-cols-2 gap-10 my-10 mx-12">
         <div className="flex flex-col items-start shadow-xl rounded-lg p-10 gap-5">

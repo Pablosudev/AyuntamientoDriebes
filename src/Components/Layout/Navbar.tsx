@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiChevronDown, FiMapPin, FiMenu, FiX } from "react-icons/fi";
+import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function Navbar() {
     <nav className="border-b-7 border-yellow-500 bg-black px-4 py-5 sm:px-6 lg:px-10">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
         <div className="flex items-center gap-3 text-yellow-500">
-          <FiMapPin className="text-3xl sm:text-4xl" />
+          <img src="/public/img/Logo.png" className=" h-10 sm:h-12  " />
           <div className="text-left">
             <h3 className="text-base font-bold sm:text-lg">Driebes</h3>
             <h4 className="text-sm sm:text-base">Guadalajara</h4>

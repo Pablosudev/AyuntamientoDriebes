@@ -11,10 +11,12 @@ const newsAvailable = News.map((news) => news.categoría);
 export default function Noticias() {
   return (
     <>
-      <div className="bg-black pb-10 text-center place-items-center">
-        <IoNewspaperOutline className="text-6xl mt-4 text-yellow-500" />
-        <h1 className="text-7xl pt-2 pb-2 text-white">Noticias</h1>
-        <p className="text-2xl py-8 text-white">
+      <div className="flex flex-col items-center gap-3 bg-black px-6 py-12 text-center sm:px-8 lg:px-10">
+        <IoNewspaperOutline className="text-4xl text-yellow-500 sm:text-5xl" />
+        <h1 className="text-4xl leading-none text-white sm:text-5xl lg:text-6xl">
+          Noticias
+        </h1>
+        <p className="max-w-xl text-sm leading-6 text-white sm:text-base">
           Últimas novedades del municipio
         </p>
       </div>

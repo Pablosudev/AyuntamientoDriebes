@@ -1,5 +1,19 @@
 [
   {
+    "id": 5,
+    "category": "reserva",
+    "title": "Reserva Servicio Municipal",
+    "description": "Consulta la disponibilidad y solicita la reserva del refugio municipal.",
+    "servicios": [
+      "Consulta de días disponibles",
+      "Solicitud de las fechas deseadas",
+      "Confirmación por parte del Ayuntamiento"
+    ],
+    "contacto": "Ayuntamiento de Driebes",
+    "horario": "Lunes a Viernes: 9:00 - 14:00",
+    "actionLabel": "Consulta los días disponibles"
+  },
+  {
     "id": 1,
     "category": "administracion",
     "title": "Administración Municipal",

@@ -23,42 +23,42 @@ export default function HistoriaCaraca() {
   return (
     <div className="tourism-page overflow-hidden bg-[#f6efe5] text-slate-900">
       <section
-        className="relative min-h-[78vh] overflow-hidden bg-cover bg-center"
+        className="relative min-h-[68vh] overflow-hidden bg-cover bg-center"
         style={{
           backgroundImage: `url(${caracaHero})`,
           backgroundPosition: "center center",
         }}
       >
         <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(17,24,39,0.86),rgba(17,24,39,0.52),rgba(120,53,15,0.28))]" />
-        <div className="absolute -left-20 top-20 h-56 w-56 rounded-full bg-amber-300/20 blur-3xl" />
-        <div className="absolute bottom-10 right-0 h-72 w-72 rounded-full bg-orange-900/20 blur-3xl" />
+        <div className="absolute -left-16 top-16 h-44 w-44 rounded-full bg-amber-300/20 blur-3xl" />
+        <div className="absolute bottom-8 right-0 h-56 w-56 rounded-full bg-orange-900/20 blur-3xl" />
 
-        <div className="relative mx-auto flex min-h-[78vh] max-w-7xl items-center px-6 py-18 sm:px-8 lg:px-10">
-          <div className="tourism-glass max-w-3xl rounded-[2rem] p-8 text-left text-white shadow-[0_30px_80px_rgba(15,23,42,0.35)] sm:p-10 lg:p-12">
-            <p className="tourism-kicker mb-4 text-sm uppercase tracking-[0.35em] text-amber-200">
+        <div className="relative mx-auto flex min-h-[68vh] max-w-6xl items-center px-6 py-12 sm:px-8 lg:px-10">
+          <div className="tourism-glass max-w-3xl rounded-[1.75rem] p-6 text-left text-white shadow-[0_24px_65px_rgba(15,23,42,0.32)] sm:p-8 lg:p-10">
+            <p className="tourism-kicker mb-3 text-xs uppercase tracking-[0.3em] text-amber-200">
               Historia de Caraca
             </p>
-            <h1 className="tourism-display text-5xl leading-none sm:text-6xl lg:text-8xl">
+            <h1 className="tourism-display text-4xl leading-none sm:text-5xl lg:text-6xl">
               El pasado romano que sigue dando sentido al territorio.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-stone-100 sm:text-lg">
+            <p className="mt-4 max-w-xl text-sm leading-6 text-stone-100 sm:text-base">
               Caraca es una de las referencias historicas mas significativas del
               entorno de Driebes y una pieza clave para comprender la riqueza
               arqueologica y patrimonial del municipio.
             </p>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                <p className="text-2xl font-semibold text-white">Arqueologia</p>
-                <p className="mt-1 text-sm text-stone-200">Vestigios de gran valor historico</p>
+            <div className="mt-6 grid gap-2 sm:grid-cols-3">
+              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                <p className="text-lg font-semibold text-white">Arqueologia</p>
+                <p className="mt-1 text-xs text-stone-200">Vestigios de gran valor historico</p>
               </div>
-              <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                <p className="text-2xl font-semibold text-white">Territorio</p>
-                <p className="mt-1 text-sm text-stone-200">Un enclave conectado con la Alcarria</p>
+              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                <p className="text-lg font-semibold text-white">Territorio</p>
+                <p className="mt-1 text-xs text-stone-200">Un enclave conectado con la Alcarria</p>
               </div>
-              <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                <p className="text-2xl font-semibold text-white">Memoria</p>
-                <p className="mt-1 text-sm text-stone-200">Un legado vivo en la identidad local</p>
+              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                <p className="text-lg font-semibold text-white">Memoria</p>
+                <p className="mt-1 text-xs text-stone-200">Un legado vivo en la identidad local</p>
               </div>
             </div>
           </div>

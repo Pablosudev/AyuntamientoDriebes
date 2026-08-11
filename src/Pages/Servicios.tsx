@@ -1,4 +1,8 @@
-import { LuClock3, LuFileCheck2, LuLandmark, LuUsersRound } from "react-icons/lu";
+import {
+  LuClock3,
+  LuFileCheck2,
+  LuUsersRound,
+} from "react-icons/lu";
 import CardService from "../Components/Cards/CardService";
 import serviciosHero from "../assets/servicios-ayuntamiento-acuarela.png";
 
@@ -6,98 +10,65 @@ export default function Servicios() {
   return (
     <div className="tourism-page overflow-hidden bg-[#f6efe5] text-slate-900">
       <section
-        className="relative min-h-[78vh] overflow-hidden bg-cover bg-center"
+        className="relative min-h-[68vh] overflow-hidden bg-cover bg-center"
         style={{
           backgroundImage: `url(${serviciosHero})`,
           backgroundPosition: "center center",
         }}
       >
         <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(17,24,39,0.82),rgba(22,101,52,0.58),rgba(180,83,9,0.26))]" />
-        <div className="absolute -left-20 top-20 h-56 w-56 rounded-full bg-amber-300/20 blur-3xl" />
-        <div className="absolute bottom-10 right-0 h-72 w-72 rounded-full bg-emerald-900/20 blur-3xl" />
+        <div className="absolute -left-16 top-16 h-44 w-44 rounded-full bg-amber-300/20 blur-3xl" />
+        <div className="absolute bottom-8 right-0 h-56 w-56 rounded-full bg-emerald-900/20 blur-3xl" />
 
-        <div className="relative mx-auto flex min-h-[78vh] max-w-7xl items-center px-6 py-18 sm:px-8 lg:px-10">
-          <div className="tourism-glass max-w-4xl rounded-[2rem] p-8 text-left text-white shadow-[0_30px_80px_rgba(15,23,42,0.35)] sm:p-10 lg:p-12">
-            <p className="tourism-kicker mb-4 text-sm uppercase tracking-[0.35em] text-amber-200">
+        <div className="relative mx-auto flex min-h-[68vh] max-w-6xl items-center px-6 py-12 sm:px-8 lg:px-10">
+          <div className="tourism-glass max-w-3xl rounded-[1.75rem] p-6 text-left text-white shadow-[0_24px_65px_rgba(15,23,42,0.32)] sm:p-8 lg:p-10">
+            <p className="tourism-kicker pb-5 text-xs uppercase tracking-[0.3em] text-amber-200">
               Servicios Municipales
             </p>
-            <h1 className="tourism-display text-5xl leading-none sm:text-6xl lg:text-8xl">
+            <h1 className="tourism-display text-4xl leading-none sm:text-5xl lg:text-6xl">
               Trámites, atención y servicios cotidianos con una mirada cercana.
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-stone-100 sm:text-lg">
+            {/* <p className="mt-4 max-w-xl text-sm leading-6 text-stone-100 sm:text-base">
               El Ayuntamiento de Driebes reúne en esta sección la información
               esencial para resolver gestiones, consultar horarios y localizar
               los servicios municipales más habituales.
-            </p>
+            </p> */}
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                <p className="text-2xl font-semibold text-white">Atención útil</p>
-                <p className="mt-1 text-sm text-stone-200">Información clara y directa</p>
+            <div className="mt-6 grid gap-2 sm:grid-cols-3">
+              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                <p className="text-lg font-semibold text-white">
+                  Atención útil
+                </p>
+                <p className="mt-1 text-xs text-stone-200">
+                  Información clara y directa
+                </p>
               </div>
-              <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                <p className="text-2xl font-semibold text-white">Gestiones básicas</p>
-                <p className="mt-1 text-sm text-stone-200">Trámites del día a día municipal</p>
+              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                <p className="text-lg font-semibold text-white">
+                  Gestiones básicas
+                </p>
+                <p className="mt-1 text-xs text-stone-200">
+                  Trámites del día a día municipal
+                </p>
               </div>
-              <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-4 backdrop-blur-sm">
-                <p className="text-2xl font-semibold text-white">Cercanía local</p>
-                <p className="mt-1 text-sm text-stone-200">Servicios pensados para el vecino</p>
+              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
+                <p className="text-lg font-semibold text-white">
+                  Cercanía local
+                </p>
+                <p className="mt-1 text-xs text-stone-200">
+                  Servicios pensados para el vecino
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="relative mx-auto grid max-w-7xl gap-8 px-6 py-14 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-20">
-        <div>
-          <p className="tourism-kicker text-sm uppercase tracking-[0.3em] text-amber-700">
-            Servicios
-          </p>
-          <h2 className="tourism-display mt-4 text-4xl leading-tight text-stone-900 sm:text-5xl">
-            Una página práctica, pero con la misma identidad visual del sitio.
-          </h2>
-          <p className="mt-6 max-w-3xl text-base leading-8 text-stone-700 sm:text-lg">
-            Esta sección organiza la atención municipal desde un formato más
-            acogedor y legible, manteniendo el lenguaje visual cálido y
-            patrimonial que ya define las páginas de inicio y turismo.
-          </p>
-        </div>
-
-        <div className="tourism-panel rounded-[2rem] p-6 sm:p-8">
-          <div className="grid gap-4">
-            <div className="flex items-start gap-4 rounded-2xl bg-white/80 p-4">
-              <div className="rounded-2xl bg-amber-100 p-3 text-2xl text-amber-700">
-                <LuLandmark />
-              </div>
-              <div className="text-left">
-                <p className="text-sm uppercase tracking-[0.25em] text-stone-500">
-                  Enfoque
-                </p>
-                <p className="mt-1 text-lg font-semibold text-stone-900">
-                  Servicios municipales presentados con más claridad
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4 rounded-2xl bg-white/80 p-4">
-              <div className="rounded-2xl bg-emerald-100 p-3 text-2xl text-emerald-700">
-                <LuUsersRound />
-              </div>
-              <div className="text-left">
-                <p className="text-sm uppercase tracking-[0.25em] text-stone-500">
-                  Objetivo
-                </p>
-                <p className="mt-1 text-lg font-semibold text-stone-900">
-                  Facilitar la relación cotidiana entre el vecino y el ayuntamiento
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="relative mx-auto grid max-w-7xl gap-8 px-6 py-5 sm:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-10 lg:py-20"></section>
 
       <section className="mx-auto w-full max-w-7xl px-6 py-6 sm:px-8 lg:px-10">
         <div className="mb-10 text-left">
-          <p className="tourism-kicker text-sm uppercase tracking-[0.3em] text-amber-700">
+          <p className="tourism-kicker text-sm  pb-4 uppercase tracking-[0.3em] text-amber-700">
             Servicios disponibles
           </p>
           <h2 className="tourism-display mt-3 text-4xl text-stone-900 sm:text-5xl">
