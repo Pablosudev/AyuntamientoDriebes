@@ -1,17 +1,139 @@
 @import "tailwindcss";
 
+@theme {
+  --color-civic-paper: #f7f5ef;
+  --color-civic-white: #fffefa;
+  --color-civic-ink: #2e332f;
+  --color-civic-muted: #676a63;
+  --color-civic-line: #deddd3;
+  --color-civic-stone: #d9d4c8;
+  --color-civic-burgundy: #762d3e;
+  --color-civic-burgundy-dark: #592131;
+  --color-civic-gold: #a78b58;
+  --color-civic-sand: #dfcba7;
+  --color-civic-forest: #283e36;
+  --font-editorial:
+    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+}
+
+/* A real photographic album: vertical scrolling moves whole, uncropped prints. */
+.driebes-journey {
+  height: 230svh;
+}
+.driebes-scene {
+  height: 100svh;
+}
+.driebes-photo-track {
+  transform: translate3d(
+    var(--driebes-track-x, calc((100vw - min(84vw, 660px)) / 2)),
+    0,
+    0
+  );
+}
+
+/* Scroll-led introduction. Only transforms and opacity change while travelling. */
+.caraca-journey {
+  height: 280svh;
+}
+.caraca-scene {
+  height: 100svh;
+  min-height: 640px;
+}
+.caraca-past {
+  transform: translate3d(var(--caraca-pan, 0%), 0, 0)
+    scale(var(--caraca-scale, 1));
+}
+.caraca-present {
+  opacity: var(--caraca-ruins, 0);
+  transform: scale(var(--caraca-ruins-scale, 1.12));
+}
+.caraca-intro {
+  opacity: var(--caraca-intro, 1);
+  transform: translateY(var(--caraca-intro-y, 0px));
+}
+.caraca-middle {
+  opacity: var(--caraca-middle, 0);
+  transform: translateY(var(--caraca-middle-y, 32px));
+}
+.caraca-final {
+  opacity: var(--caraca-final, 0);
+  transform: translateY(var(--caraca-final-y, 24px));
+}
+
+@media (prefers-reduced-motion: reduce), (max-height: 620px) {
+  .caraca-journey {
+    height: auto;
+  }
+  .caraca-scene {
+    position: relative;
+    height: auto;
+    min-height: 0;
+  }
+  .caraca-scene > .relative {
+    min-height: min(800px, 100svh);
+  }
+  .caraca-past {
+    transform: none;
+  }
+  .caraca-intro {
+    opacity: 1;
+    transform: none;
+  }
+  .caraca-present,
+  .caraca-middle,
+  .caraca-final,
+  .caraca-chapter-controls,
+  .caraca-scroll-hint,
+  .caraca-skip {
+    display: none;
+  }
+}
+
+/* Brief, decorative entrances. Content stays visible when motion is reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  .caraca-image-enter {
+    animation: caraca-develop 450ms ease-out both;
+  }
+
+  @keyframes caraca-develop {
+    from {
+      filter: brightness(0.8);
+    }
+    to {
+      filter: brightness(1);
+    }
+  }
+}
+
+/* Brief entrance for the Home heading; the photograph keeps its original framing. */
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero-copy {
+    animation: home-welcome 1000ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes home-welcome {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 :root {
   --text: #6b6375;
   --bg: #fff;
   --code-bg: #f4f3ec;
   --accent: #aa3bff;
- 
+
   --social-bg: rgba(244, 243, 236, 0.5);
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
@@ -48,7 +170,6 @@
 }
 
 #root {
-  
   max-width: 100%;
   margin: 0 auto;
   min-height: 100svh;
@@ -60,20 +181,19 @@ body {
   margin: 0;
 }
 
-
-
-
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+@layer base {
+  h2 {
+    font-size: 24px;
+    line-height: 118%;
+    letter-spacing: -0.24px;
+    margin: 0 0 8px;
+    @media (max-width: 1024px) {
+      font-size: 20px;
+    }
   }
-}
-p {
-  margin: 0;
+  p {
+    margin: 0;
+  }
 }
 
 code,
