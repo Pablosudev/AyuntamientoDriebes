@@ -122,6 +122,13 @@
   }
 }
 
+/* The Turismo heading shares the Home entrance; its photograph stays still. */
+@media (prefers-reduced-motion: no-preference) {
+  .turismo-hero-copy {
+    animation: home-welcome 1000ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
 :root {
   --text: #6b6375;
   --bg: #fff;
