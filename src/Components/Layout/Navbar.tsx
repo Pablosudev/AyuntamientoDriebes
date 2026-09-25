@@ -7,12 +7,13 @@ import {
   FiPhone,
   FiX,
 } from "react-icons/fi";
+import { contact } from "../../data/contacto";
 
 const links = [
   { to: "/turismo", label: "Turismo" },
   { to: "/eventos", label: "Eventos" },
   { to: "/noticias", label: "Noticias" },
-  { to: "/empresas", label: "Empresas" },
+  // { to: "/empresas", label: "Empresas" },
   { to: "/servicios", label: "Servicios" },
   { to: "/contacto", label: "Contacto" },
 ];
@@ -87,11 +88,11 @@ function Navigation({ pathname }: { pathname: string }) {
           </p>
           <div className="flex items-center gap-6">
             <a
-              href="tel:+34949298001"
+              href={contact.phone.href}
               className="hidden min-h-6 items-center gap-2 text-white/90 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:inline-flex"
             >
               <FiPhone aria-hidden="true" className="size-3" />
-              949 29 80 01
+              {contact.phone.label}
             </a>
             <Link
               to="/contacto"

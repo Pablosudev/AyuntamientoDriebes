@@ -17,6 +17,7 @@ import {
   LuSofa,
 } from "react-icons/lu";
 import { casaRuralFacade, casaRuralPhotos } from "../data/turismo";
+import { contact } from "../data/contacto";
 
 const facts = [
   { value: "5", label: "habitaciones: 4 dobles y 1 triple" },
@@ -141,11 +142,11 @@ export default function TurismoCasaRural() {
                 />
               </Link>
               <a
-                href="tel:+34949298001"
+                href={contact.phone.href}
                 className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-civic-sand hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-civic-sand"
               >
                 <FiPhone aria-hidden="true" className="size-4" />
-                949 29 80 01
+                {contact.phone.label}
               </a>
             </div>
           </div>

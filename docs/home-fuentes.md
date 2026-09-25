@@ -17,8 +17,8 @@
 
 - `public/img/caraca/termas.jpg`: fotografía documental ya incorporada al proyecto; crédito al Equipo Arqueológico Caraca y enlace a Cultura Castilla-La Mancha. Fuentes históricas en `caraca-fuentes.md`.
 - `public/img/driebesHistoria.jpg` y `public/img/grafitiDriebes.jpg`: fotografías existentes del proyecto, reutilizadas en las secciones de historia y vida cultural.
-- Noticias: se conservan títulos, fechas, categorías y textos de `src/data/news.json`. No se crean convocatorias ni fechas nuevas.
-- Agenda, turismo y servicios enlazan a las rutas existentes. Los datos de contacto mantienen los del proyecto.
+- Noticias: el tablón (`src/Components/HomeNews.tsx`) muestra las tres últimas noticias de `GET /news` de Api-Ayto. Se retira `src/data/news.json`; ver `noticias-fuentes.md`.
+- Agenda, turismo y servicios enlazan a las rutas existentes. Los datos de contacto proceden de `src/data/contacto.ts`; ver `contacto-fuentes.md`.
 
 ## Decisiones de interfaz
 
@@ -26,7 +26,7 @@
 - Estilos con Tailwind y colores municipales existentes. CSS específico únicamente para la entrada del titular, desactivada con `prefers-reduced-motion`. Se retira el efecto de desplazamiento y zoom de la fotografía.
 - Accesos de vecinos y visitantes mediante pestañas accesibles, con flechas y teclas Inicio/Fin.
 - Fotografía ampliable en diálogo nativo: Escape, botón de cierre, foco restaurado y bloqueo temporal del desplazamiento de fondo.
-- Noticias desplegables con `details` nativo; Caraca como sección principal de descubrimiento.
+- Noticias desplegables con un botón «Leer comunicado» (`aria-expanded`), que alterna entre el extracto y el texto completo; Caraca como sección principal de descubrimiento.
 - Navegación entre páginas desde el inicio para no saltarse la presentación de Caraca al entrar desde una sección inferior de Home.
 
 ## Verificación

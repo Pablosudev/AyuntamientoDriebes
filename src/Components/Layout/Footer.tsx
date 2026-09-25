@@ -6,7 +6,9 @@ import {
   FiMail,
   FiMapPin,
   FiPhone,
+  FiSmartphone,
 } from "react-icons/fi";
+import { contact } from "../../data/contacto";
 
 const quickLinks = [
   { to: "/servicios", label: "Servicios municipales" },
@@ -64,23 +66,22 @@ export default function Footer() {
               <p className="flex min-h-11 items-start gap-3 text-xs leading-6">
                 <FiMapPin aria-hidden="true" className="mt-1 size-4 shrink-0" />
                 <span>
-                  Plaza Mayor
+                  {contact.street}
                   <br />
-                  Driebes, Guadalajara
+                  {contact.postalCode} {contact.town}
                 </span>
               </p>
-              <a href="tel:+34949298001" className={footerLinkClass}>
+              <a href={contact.phone.href} className={footerLinkClass}>
                 <FiPhone aria-hidden="true" className="size-4 shrink-0" />
-                949 29 80 01
+                {contact.phone.label}
               </a>
-              <a
-                href="mailto:ayuntamiento@driebes.es"
-                className={footerLinkClass}
-              >
+              <a href={contact.mobile.href} className={footerLinkClass}>
+                <FiSmartphone aria-hidden="true" className="size-4 shrink-0" />
+                {contact.mobile.label}
+              </a>
+              <a href={`mailto:${contact.email}`} className={footerLinkClass}>
                 <FiMail aria-hidden="true" className="size-4 shrink-0" />
-                <span className="min-w-0 break-all">
-                  ayuntamiento@driebes.es
-                </span>
+                <span className="min-w-0 break-all">{contact.email}</span>
               </a>
             </address>
           </section>
@@ -115,9 +116,9 @@ export default function Footer() {
               <FiClock aria-hidden="true" className="mt-1 size-4 shrink-0" />
               <dl>
                 <dt>Lunes a viernes</dt>
-                <dd className="font-medium text-civic-ink">9:00–14:00</dd>
-                <dt className="mt-3">Sábados</dt>
-                <dd className="font-medium text-civic-ink">9:00–13:00</dd>
+                <dd className="font-medium text-civic-ink">10:00–13:00</dd>
+                <dt className="mt-3">Sábados y domingos</dt>
+                <dd className="font-medium text-civic-ink">Cerrado</dd>
               </dl>
             </div>
           </section>

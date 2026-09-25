@@ -1,87 +1,43 @@
 import { useEffect, useState } from "react";
-import { CiCalendar } from "react-icons/ci";
-import { IoImageOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import {
+  FiArrowRight,
+  FiArrowUpRight,
+  FiMapPin,
+  FiPhone,
+} from "react-icons/fi";
+import EventosAgenda from "../Components/EventosAgenda";
+import EventosHero from "../Components/EventosHero";
+import { API_URL } from "../data/api";
+import { hasPassed, sortKey } from "../data/eventos";
+import type { EventItem } from "../data/eventos";
+import { turismoFestivities, turismoSources } from "../data/turismo";
+import { contact } from "../data/contacto";
 
-type EventCategory = "Deportivo" | "Festivo" | "Religioso" | "Otro";
-
-interface EventItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string | null;
-  creationDate: string;
-  eventDate: string;
-  category: EventCategory;
-}
-
-const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:3000").replace(
-  /\/+$/,
-  "",
-);
-
-const dateFormatter = new Intl.DateTimeFormat("es-ES", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
-
-function formatEventDate(value: string): string {
-  const date = new Date(value);
-  return Number.isNaN(date.getTime())
-    ? "Fecha por confirmar"
-    : dateFormatter.format(date);
-}
-
-function mediaUrl(path: string): string {
-  if (/^https?:\/\//i.test(path)) return path;
-  return `${API_URL}/${path.replace(/^\/+/, "")}`;
-}
-
-function EventCard({ event }: { event: EventItem }) {
-  return (
-    <article className="tourism-panel mx-auto flex h-full w-full max-w-[18rem] flex-col overflow-hidden rounded-[1.75rem] border border-white/70 shadow-[0_20px_50px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_65px_rgba(120,53,15,0.14)]">
-      <div className="relative flex h-48 shrink-0 items-center justify-center overflow-hidden bg-[linear-gradient(135deg,#fffaf3,#ead7bd)]">
-        {event.image ? (
-          <img
-            src={mediaUrl(event.image)}
-            alt={`Cartel de ${event.title}`}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <IoImageOutline
-            className="h-14 w-14 text-amber-700/60"
-            aria-label="Evento sin imagen"
-          />
-        )}
-        <span className="absolute right-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-amber-800 shadow-sm backdrop-blur-sm">
-          {event.category}
-        </span>
-      </div>
-
-      <div className="flex flex-1 flex-col gap-3 p-6 text-left">
-        <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-amber-700">
-          <CiCalendar className="h-4 w-4" aria-hidden="true" />
-          <time dateTime={event.eventDate}>
-            {formatEventDate(event.eventDate)}
-          </time>
-        </p>
-        <h3 className="tourism-display text-2xl leading-tight text-stone-900">
-          {event.title}
-        </h3>
-        <p className="whitespace-pre-line text-sm leading-7 text-stone-700">
-          {event.description}
-        </p>
-      </div>
-    </article>
-  );
-}
+const focus =
+  "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-civic-burgundy";
+const label =
+  "text-[10px] font-semibold uppercase tracking-[0.22em] text-civic-burgundy sm:text-xs";
+const chapters = [
+  { id: "agenda", label: "Próximas citas" },
+  { id: "fiestas", label: "Fiestas y tradiciones" },
+  { id: "participa", label: "Participa" },
+];
 
 export default function Eventos() {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [reload, setReload] = useState(0);
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title =
+      "Agenda de Driebes: eventos y fiestas | Ayuntamiento de Driebes";
+    return () => {
+      document.title = previousTitle;
+    };
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -104,15 +60,11 @@ export default function Eventos() {
           throw new Error("La respuesta de eventos no es un listado");
         }
 
-        const orderedEvents = [...(data as EventItem[])].sort(
-          (first, second) =>
-            Date.parse(first.eventDate) - Date.parse(second.eventDate),
-        );
-        setEvents(orderedEvents);
+        setEvents(data as EventItem[]);
       } catch {
         if (!controller.signal.aborted) {
           setError(
-            "No se han podido cargar los eventos. Inténtalo de nuevo en unos instantes.",
+            "Inténtalo de nuevo en unos instantes. Si el problema continúa, consulta las actividades con el Ayuntamiento.",
           );
         }
       } finally {
@@ -124,108 +76,199 @@ export default function Eventos() {
     return () => controller.abort();
   }, [reload]);
 
+  const nextEvent =
+    events
+      .filter((event) => !hasPassed(event.eventDate))
+      .sort((first, second) =>
+        sortKey(first.eventDate).localeCompare(sortKey(second.eventDate)),
+      )[0] ?? null;
+
   return (
-    <div className="tourism-page overflow-hidden bg-[#f6efe5] text-slate-900">
-      <section
-        className="relative min-h-[68vh] overflow-hidden bg-cover bg-center"
-        style={{
-          backgroundImage: 'url("/img/grafitiDriebes.jpg")',
-          backgroundPosition: "center center",
-        }}
+    <div className="bg-civic-paper text-civic-ink">
+      <EventosHero
+        nextEvent={nextEvent}
+        isLoading={isLoading}
+        hasError={error !== null}
+      />
+      <nav
+        aria-label="Secciones de la agenda"
+        className="sticky top-0 z-20 border-b border-civic-line bg-civic-paper/95 backdrop-blur-md"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(17,24,39,0.84),rgba(17,24,39,0.5),rgba(180,83,9,0.24))]" />
-        <div className="absolute -left-16 top-16 h-44 w-44 rounded-full bg-amber-300/20 blur-3xl" />
-        <div className="absolute bottom-8 right-0 h-56 w-56 rounded-full bg-orange-900/20 blur-3xl" />
+        <div className="mx-auto flex max-w-[1320px] overflow-x-auto px-2 [scrollbar-color:var(--color-civic-stone)_transparent] [scrollbar-width:thin] sm:justify-start sm:gap-8 sm:px-10 lg:px-12">
+          {chapters.map((chapter, index) => (
+            <a
+              key={chapter.id}
+              href={`#${chapter.id}`}
+              className="flex min-h-16 shrink-0 items-center gap-3 px-4 py-3 text-[11px] font-medium text-civic-muted hover:bg-civic-white hover:text-civic-burgundy focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-civic-burgundy"
+            >
+              <span
+                aria-hidden="true"
+                className="font-editorial italic text-civic-burgundy/70"
+              >
+                0{index + 1}
+              </span>
+              {chapter.label}
+            </a>
+          ))}
+        </div>
+      </nav>
 
-        <div className="relative mx-auto flex min-h-[68vh] max-w-6xl items-center px-6 py-12 sm:px-8 lg:px-10">
-          <div className="tourism-glass max-w-3xl rounded-[1.75rem] p-6 text-left text-white shadow-[0_24px_65px_rgba(15,23,42,0.32)] sm:p-8 lg:p-10">
-            <p className="tourism-kicker mb-3 text-xs uppercase tracking-[0.3em] text-amber-200">
-              Ayuntamiento de Driebes
-            </p>
-            <h1 className="tourism-display text-4xl leading-none sm:text-5xl lg:text-6xl">
-              Eventos y Fiestas
-            </h1>
-            <p className="mt-4 max-w-xl text-sm leading-6 text-stone-100 sm:text-base">
-              Tradiciones que nos unen y celebran nuestra identidad como
-              comunidad. Descubre los próximos eventos.
-            </p>
+      <section
+        id="agenda"
+        aria-labelledby="agenda-title"
+        className="mx-auto max-w-[1320px] scroll-mt-16 px-6 py-16 sm:px-10 sm:py-24 lg:px-12"
+      >
+        <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-end">
+          <div>
+            <p className={label}>01 / Próximas citas</p>
+            <h2
+              id="agenda-title"
+              className="mb-0 mt-4 font-editorial text-4xl leading-[1.08] tracking-[-0.03em] sm:text-5xl"
+            >
+              Apunta la fecha.
+              <br />
+              <span className="italic text-civic-burgundy">
+                Nos vemos allí.
+              </span>
+            </h2>
+          </div>
+          <p className="max-w-md text-sm leading-7 text-civic-muted">
+            Las actividades que publica el Ayuntamiento, ordenadas por fecha.
+            Filtra por categoría para encontrar tu plan.
+          </p>
+        </div>
+        <EventosAgenda
+          events={events}
+          isLoading={isLoading}
+          error={error}
+          onRetry={() => setReload((value) => value + 1)}
+        />
+      </section>
 
-            <div className="mt-6 grid gap-2 sm:grid-cols-3">
-              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
-                <p className="text-lg font-semibold text-white">Tradición</p>
-                <p className="mt-1 text-xs text-stone-200">
-                  Celebraciones con identidad
-                </p>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
-                <p className="text-lg font-semibold text-white">Comunidad</p>
-                <p className="mt-1 text-xs text-stone-200">
-                  Encuentros para compartir
-                </p>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/10 px-3 py-3 backdrop-blur-sm">
-                <p className="text-lg font-semibold text-white">Agenda local</p>
-                <p className="mt-1 text-xs text-stone-200">
-                  Próximas citas del municipio
-                </p>
-              </div>
+      <section
+        id="fiestas"
+        aria-labelledby="fiestas-title"
+        className="scroll-mt-16 border-y border-civic-line bg-[#ece7dc]"
+      >
+        <div className="mx-auto max-w-[1320px] px-6 py-16 sm:px-10 sm:py-24 lg:px-12">
+          <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-end">
+            <div>
+              <p className={label}>02 / Fiestas y tradiciones</p>
+              <h2
+                id="fiestas-title"
+                className="mb-0 mt-4 font-editorial text-4xl leading-[1.08] tracking-[-0.03em] sm:text-5xl"
+              >
+                Hay fechas
+                <br />
+                <span className="italic text-civic-burgundy">
+                  que no se olvidan.
+                </span>
+              </h2>
             </div>
+            <p className="max-w-md text-sm leading-7 text-civic-muted">
+              Más allá de la agenda, el calendario festivo marca el año en
+              Driebes. Las fechas exactas pueden variar cada año.
+            </p>
+          </div>
+          <ol className="mt-12 grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+            {turismoFestivities.map((festivity, index) => (
+              <li
+                key={festivity.title}
+                className="relative border-t border-civic-line pt-6 before:absolute before:-top-[4px] before:left-0 before:size-[7px] before:rounded-full before:bg-civic-burgundy"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-editorial text-3xl tracking-[-0.025em] text-civic-burgundy">
+                    {festivity.date}
+                  </p>
+                  <span
+                    aria-hidden="true"
+                    className="font-editorial text-xs italic text-civic-muted"
+                  >
+                    0{index + 1}
+                  </span>
+                </div>
+                <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-civic-muted">
+                  {festivity.period}
+                </p>
+                <h3 className="mt-5 font-editorial text-xl leading-tight">
+                  {festivity.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-civic-muted">
+                  {festivity.text}
+                </p>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-10 flex flex-col justify-between gap-4 border-t border-civic-line pt-6 sm:flex-row sm:items-center">
+            <a
+              href={turismoSources.festivities.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex min-h-11 items-center gap-2 text-[11px] font-medium text-civic-burgundy underline decoration-civic-gold/60 underline-offset-4 hover:text-civic-burgundy-dark ${focus}`}
+            >
+              Fiestas y tradiciones, según la web municipal
+              <FiArrowUpRight aria-hidden="true" className="size-3.5 shrink-0" />
+            </a>
+            <Link
+              to="/turismo"
+              className={`inline-flex min-h-11 items-center gap-4 text-xs font-semibold text-civic-burgundy ${focus}`}
+            >
+              Prepara tu visita a Driebes{" "}
+              <FiArrowRight aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6 py-10 sm:px-8 lg:px-10 lg:py-14">
-        <div className="mb-8 max-w-2xl text-left">
-          <p className="tourism-kicker text-xs uppercase tracking-[0.28em] text-amber-700">
-            Agenda municipal
-          </p>
-          <h2 className="tourism-display mt-3 text-3xl text-stone-900 sm:text-4xl">
-            Eventos de Driebes
-          </h2>
-        </div>
-
-        {isLoading && (
-          <div
-            className="tourism-panel rounded-[1.5rem] border border-white/70 px-5 py-12 text-center shadow-[0_18px_45px_rgba(15,23,42,0.07)]"
-            role="status"
-          >
-            <p className="text-lg text-stone-700">
-              Cargando eventos...
-            </p>
-          </div>
-        )}
-
-        {!isLoading && error && (
-          <div
-            className="tourism-panel mx-auto max-w-xl rounded-[1.5rem] border border-red-200 p-6 text-center shadow-[0_18px_45px_rgba(15,23,42,0.07)]"
-            role="alert"
-          >
-            <p className="text-red-800">{error}</p>
-            <button
-              type="button"
-              onClick={() => setReload((value) => value + 1)}
-              className="mt-4 rounded-full border border-amber-600 bg-amber-600 px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] text-stone-950 transition hover:-translate-y-0.5 hover:bg-amber-500"
+      <section
+        id="participa"
+        aria-labelledby="participa-title"
+        className="relative isolate scroll-mt-16 overflow-hidden bg-civic-white"
+      >
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-4 -top-10 -z-10 font-editorial text-[clamp(10rem,24vw,25rem)] leading-none tracking-[-0.06em] text-civic-burgundy/[0.035]"
+        >
+          ¡Ven!
+        </span>
+        <div className="mx-auto grid max-w-[1320px] gap-9 px-6 py-14 sm:px-10 sm:py-16 md:grid-cols-[1fr_0.8fr] md:items-center lg:px-12">
+          <div>
+            <p className={label}>03 / Participa</p>
+            <h2
+              id="participa-title"
+              className="mb-0 mt-4 font-editorial text-4xl tracking-[-0.025em] sm:text-5xl"
             >
-              Reintentar
-            </button>
-          </div>
-        )}
-
-        {!isLoading && !error && events.length === 0 && (
-          <div className="tourism-panel rounded-[1.5rem] border border-white/70 px-5 py-12 text-center shadow-[0_18px_45px_rgba(15,23,42,0.07)]">
-            <p className="text-lg text-stone-700">
-              No hay eventos publicados en este momento.
+              ¿Tienes una propuesta?
+            </h2>
+            <p className="mt-5 max-w-md text-sm leading-7 text-civic-muted">
+              Si quieres proponer una actividad o tienes dudas sobre alguna
+              cita de la agenda, el Ayuntamiento te atiende.
             </p>
           </div>
-        )}
-
-        {!isLoading && !error && events.length > 0 && (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {events.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
+          <div className="border-l-2 border-civic-burgundy pl-6 sm:pl-8">
+            <a
+              href={contact.phone.href}
+              className={`inline-flex min-h-12 items-center gap-4 font-editorial text-3xl text-civic-burgundy ${focus}`}
+            >
+              <FiPhone
+                aria-hidden="true"
+                className="size-5 shrink-0 stroke-[1.25]"
+              />
+              {contact.phone.label}
+            </a>
+            <p className="mt-3 flex items-center gap-3 text-xs text-civic-muted">
+              <FiMapPin aria-hidden="true" />
+              {contact.office} · {contact.street}
+            </p>
+            <Link
+              to="/contacto"
+              className={`mt-5 inline-flex min-h-11 items-center gap-5 border-b border-civic-burgundy text-xs font-semibold text-civic-burgundy ${focus}`}
+            >
+              Escribir al Ayuntamiento{" "}
+              <FiArrowUpRight aria-hidden="true" className="shrink-0" />
+            </Link>
           </div>
-        )}
+        </div>
       </section>
     </div>
   );

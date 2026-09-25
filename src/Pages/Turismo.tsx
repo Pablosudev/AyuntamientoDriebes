@@ -16,6 +16,7 @@ import { LuCompass, LuFootprints, LuLeaf, LuUtensils } from "react-icons/lu";
 import TurismoCasaRural from "../Components/TurismoCasaRural";
 import TurismoHero from "../Components/TurismoHero";
 import TurismoRoutes from "../Components/TurismoRoutes";
+import { contact } from "../data/contacto";
 import { turismoFestivities, turismoSources } from "../data/turismo";
 
 const focus =
@@ -60,7 +61,7 @@ const places = [
   {
     title: "La Plaza Mayor",
     category: "El punto de encuentro",
-    text: "El corazón del pueblo. Aquí está el Ayuntamiento y aquí se reúne Driebes para celebrar.",
+    text: "El corazón del pueblo, donde Driebes se reúne para celebrar y compartir.",
     source: {
       publisher: "Google Maps",
       url: "https://www.google.com/maps/search/?api=1&query=Plaza+Mayor+Driebes+Guadalajara",
@@ -146,8 +147,7 @@ const questions = [
   },
   {
     question: "¿Dónde me informo al llegar?",
-    answer:
-      "En el Ayuntamiento, en la Plaza Mayor: de lunes a viernes, de 9:00 a 14:00, y los sábados, de 9:00 a 13:00. También puedes llamar al 949 29 80 01.",
+    answer: `En el Ayuntamiento, en ${contact.street}. Atiende de ${contact.hours.toLowerCase()}. También puedes llamar al ${contact.phone.label}.`,
   },
 ];
 

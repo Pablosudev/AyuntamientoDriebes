@@ -14,6 +14,7 @@ import { LuLandmark, LuScanLine } from "react-icons/lu";
 import CaracaExplorer from "../Components/CaracaExplorer";
 import CaracaHero from "../Components/CaracaHero";
 import { caracaFaqs, caracaSources, caracaTimeline } from "../data/caraca";
+import { contact } from "../data/contacto";
 
 const chapters = [
   { id: "descubrimiento", label: "El descubrimiento" },
@@ -476,11 +477,11 @@ export default function HistoriaCaraca() {
                 Consultar visitas <FiArrowUpRight aria-hidden="true" />
               </Link>
               <a
-                href="tel:+34949298001"
+                href={contact.phone.href}
                 className={`inline-flex min-h-11 items-center gap-2 text-sm font-medium text-civic-burgundy ${focusStyle}`}
               >
                 <FiPhone aria-hidden="true" className="size-4" />
-                949 29 80 01
+                {contact.phone.label}
               </a>
             </div>
           </div>
