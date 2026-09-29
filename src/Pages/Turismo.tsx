@@ -268,7 +268,7 @@ export default function Turismo() {
           <span aria-hidden="true" className="h-px flex-1 bg-civic-line" />
         </div>
         <div className="mt-6 grid gap-x-10 md:grid-cols-2 lg:grid-cols-3">
-          {places.map((place, index) => (
+          {places.map((place) => (
             <article
               key={place.title}
               className="relative border-t border-civic-line py-7 before:absolute before:-top-[4px] before:left-0 before:size-[7px] before:rounded-full before:bg-civic-burgundy"
@@ -454,7 +454,7 @@ export default function Turismo() {
             </p>
           </div>
           <ol className="mt-12 grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-            {turismoFestivities.map((festivity, index) => (
+            {turismoFestivities.map((festivity) => (
               <li
                 key={festivity.title}
                 className="relative border-t border-civic-line pt-6 before:absolute before:-top-[4px] before:left-0 before:size-[7px] before:rounded-full before:bg-civic-burgundy"
