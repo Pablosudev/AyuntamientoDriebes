@@ -142,15 +142,15 @@ export default function TurismoCasaRural() {
                 />
               </Link>
               <a
-                href={contact.phone.href}
+                href={contact.phoneHouse.href}
                 className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-civic-sand hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-civic-sand"
               >
                 <FiPhone aria-hidden="true" className="size-4" />
-                {contact.phone.label}
+                {contact.phoneHouse.label}
               </a>
             </div>
           </div>
-          <figure className="min-w-0 max-w-[750px]">
+          <figure className="min-w-0 max-w-187.5">
             <div className="border border-white/25 bg-civic-paper p-3 sm:p-4">
               <img
                 src={casaRuralFacade.image}

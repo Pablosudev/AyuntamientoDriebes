@@ -5,6 +5,7 @@ export const contact = {
   town: "Driebes (Guadalajara)",
   phone: { label: "949 38 90 01", href: "tel:+34949389001" },
   mobile: { label: "690 13 88 47", href: "tel:+34690138847" },
+  phoneHouse: {label: "659 34 49 78", href: "tel:+34659344978"},
   email: "aytodriebes@gmail.com",
   hours: "Lunes a viernes, de 10:00 a 13:00",
   mapsUrl:

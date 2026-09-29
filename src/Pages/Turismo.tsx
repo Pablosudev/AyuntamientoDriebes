@@ -31,7 +31,6 @@ const chapters = [
 ];
 const highlights = [
   {
-    number: "01",
     category: "Patrimonio · Siglo XVII",
     title: "La iglesia de la Asunción.",
     description:
@@ -44,7 +43,6 @@ const highlights = [
     imageClass: "object-center",
   },
   {
-    number: "02",
     category: "Yacimiento arqueológico · BIC",
     title: "Caraca, la ciudad romana.",
     description:
@@ -199,7 +197,7 @@ export default function Turismo() {
                 aria-hidden="true"
                 className="font-editorial italic text-civic-burgundy/70"
               >
-                0{index + 1}
+                
               </span>
               {chapter.label}
             </a>
@@ -214,7 +212,7 @@ export default function Turismo() {
       >
         <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-end">
           <div>
-            <p className={label}>01 / Lugares con carácter</p>
+            <p className={label}>/ Lugares con carácter</p>
             <h2
               id="turismo-places-title"
               className="mb-0 mt-4 font-editorial text-4xl leading-[1.08] tracking-[-0.03em] sm:text-5xl"
@@ -247,12 +245,7 @@ export default function Turismo() {
                   loading="lazy"
                   className={`h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.04] ${highlight.imageClass}`}
                 />
-                <span
-                  aria-hidden="true"
-                  className="absolute left-5 top-5 flex size-10 items-center justify-center rounded-full bg-civic-paper font-editorial text-sm italic text-civic-burgundy"
-                >
-                  {highlight.number}
-                </span>
+           
                 <span className="absolute bottom-5 right-5 flex size-12 items-center justify-center bg-civic-paper text-civic-burgundy transition-colors group-hover:bg-civic-burgundy group-hover:text-white">
                   <FiArrowUpRight aria-hidden="true" className="size-5" />
                 </span>
@@ -284,12 +277,6 @@ export default function Turismo() {
                 <h3 className="font-editorial text-2xl leading-tight">
                   {place.title}
                 </h3>
-                <span
-                  aria-hidden="true"
-                  className="font-editorial text-xl italic text-civic-gold"
-                >
-                  0{index + 3}
-                </span>
               </div>
               <p className="mt-3 text-[10px] font-medium uppercase leading-5 tracking-[0.12em] text-civic-burgundy">
                 {place.category}
@@ -318,7 +305,7 @@ export default function Turismo() {
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div>
               <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-civic-sand sm:text-xs">
-                02 / Senderismo y naturaleza
+                / Senderismo y naturaleza
               </p>
               <h2
                 id="turismo-routes-title"
@@ -393,7 +380,7 @@ export default function Turismo() {
               Bares y restaurantes
             </p>
             <ul className="mt-5 border-t border-civic-line">
-              {restaurants.map((restaurant, index) => (
+              {restaurants.map((restaurant) => (
                 <li
                   key={restaurant.name}
                   className="grid gap-x-6 gap-y-2 border-b border-civic-line py-6 sm:grid-cols-[2rem_1fr_auto] sm:items-start"
@@ -401,9 +388,8 @@ export default function Turismo() {
                   <span
                     aria-hidden="true"
                     className="font-editorial text-sm italic text-civic-gold sm:pt-1.5"
-                  >
-                    0{index + 1}
-                  </span>
+                  />
+                  
                   <div>
                     <h3 className="font-editorial text-2xl leading-tight">
                       {restaurant.name}
@@ -450,7 +436,7 @@ export default function Turismo() {
         <div className="mx-auto max-w-[1320px] px-6 py-16 sm:px-10 sm:py-24 lg:px-12">
           <div className="grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-end">
             <div>
-              <p className={label}>04 / Cuándo venir</p>
+              <p className={label}>/ Cuándo venir</p>
               <h2
                 id="turismo-calendar-title"
                 className="mb-0 mt-4 font-editorial text-4xl leading-[1.08] tracking-[-0.03em] sm:text-5xl"
@@ -477,12 +463,6 @@ export default function Turismo() {
                   <p className="font-editorial text-3xl tracking-[-0.025em] text-civic-burgundy">
                     {festivity.date}
                   </p>
-                  <span
-                    aria-hidden="true"
-                    className="font-editorial text-xs italic text-civic-muted"
-                  >
-                    0{index + 1}
-                  </span>
                 </div>
                 <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-civic-muted">
                   {festivity.period}
