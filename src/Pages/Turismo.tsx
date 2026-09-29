@@ -187,7 +187,7 @@ export default function Turismo() {
         className="sticky top-0 z-20 border-b border-civic-line bg-civic-paper/95 backdrop-blur-md"
       >
         <div className="mx-auto flex max-w-[1320px] overflow-x-auto px-2 [scrollbar-color:var(--color-civic-stone)_transparent] [scrollbar-width:thin] sm:justify-between sm:px-10 lg:px-12">
-          {chapters.map((chapter, index) => (
+          {chapters.map((chapter) => (
             <a
               key={chapter.id}
               href={`#${chapter.id}`}
